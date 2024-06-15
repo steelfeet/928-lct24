@@ -12,7 +12,7 @@ ver_2_gan.py - детекция в режиме "ПП" (Максимизация
 python -m venv /path/to/new/virtual/environment  
 source myvenv/bin/activate
 
-**аккуратно инсталлируем требуемые модули**
+**аккуратно инсталлируем требуемые модули**  
 pip install -r requirements.txt  
 Обратите внимание, версия torch должна соответствовать вашей ОС и GPU. Поэтому сначала стоит установить нужную Вам версию torch, а затем пакеты из requirements.txt
 
