@@ -10,7 +10,10 @@ ver_2_gan.py - детекция в режиме "ПП" (Максимизация
 ### Порядок установки ver_1_yolo
 [создаем и активируем виртуальное окружение](https://docs.python.org/3/library/venv.html)  
 python -m venv /path/to/new/virtual/environment  
-source myvenv/bin/activate
+source myvenv/bin/activate  
+
+Для Вашего удобства мы подготовили полностью работоспособное виртуальное окружение [gummy.zip](https://disk.yandex.ru/d/N8iylUdlmqCGtg). Его осталось только скачать и активировать командой  
+source gummy/bin/activate  
 
 **аккуратно инсталлируем требуемые модули**  
 pip install -r requirements.txt  
@@ -27,6 +30,13 @@ python setup.py develop
 
 Первый запуск обеих версий может потребовать выхода в Интернет для скачивания предобученных моделей.  
 Затем небходимо [скачать новые файлы с весами для датасета had](https://disk.yandex.ru/d/N8iylUdlmqCGtg) и разместить их в том-же каталоге. 
+
+При запуске ver_2_gan может возникать ошибка: "ModuleNotFoundError: No module named 'torchvision.transforms.functional_tensor'". В этом случае [надо отредактировать файл](https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/13985) Вашего виртуального окружения /lib/python3.12/site-packages/basicsr/data/degradations.py и заменить  
+from torchvision.transforms.functional_tensor import rgb_to_grayscale  
+на  
+from torchvision.transforms.functional import rgb_to_grayscale  
+В предложенном виртуальном окружении эта ошибка уже исправлена
+
 
 ### Запуск обеих версий
 python ver_1_yolo.py -i images -o labels -conf 0.25 -iou 0.6  
