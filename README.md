@@ -12,9 +12,6 @@ ver_2_gan.py - детекция в режиме "ПП" (Максимизация
 python -m venv /path/to/new/virtual/environment  
 source myvenv/bin/activate  
 
-Для Вашего удобства мы подготовили полностью работоспособное виртуальное окружение [gummy.zip](https://disk.yandex.ru/d/N8iylUdlmqCGtg). Его осталось только скачать и активировать командой  
-source gummy/bin/activate  
-
 **аккуратно инсталлируем требуемые модули**  
 pip install -r requirements.txt  
 Обратите внимание, **версия torch должна соответствовать вашей ОС и GPU**. Поэтому сначала стоит установить нужную Вам версию torch, а затем пакеты из requirements.txt
@@ -27,6 +24,9 @@ pip install facexlib
 pip install gfpgan  
 pip install -r requirements.txt  
 python setup.py develop  
+
+Для Вашего удобства мы подготовили полностью работоспособное виртуальное окружение [gummy.zip](https://disk.yandex.ru/d/N8iylUdlmqCGtg). Его осталось только скачать и активировать командой  
+source gummy/bin/activate  
 
 Первый запуск обеих версий может потребовать выхода в Интернет для скачивания предобученных моделей.  
 Затем небходимо [скачать новые файлы с весами для датасета had](https://disk.yandex.ru/d/N8iylUdlmqCGtg) и разместить их в том-же каталоге. 
