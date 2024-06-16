@@ -207,7 +207,7 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
-    yolo_model = YOLO(f"yolov8m.pt").load(os.path.join(BASE_DIR, "yolov8x.pt"))
+    yolo_model = YOLO(f"yolov8x.pt").load(os.path.join(BASE_DIR, "yolov8x.pt"))
     mnet_model_big = torchvision.models.mobilenet_v3_large(weights=torchvision.models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
     #перенастраиваем модель под наши классы
     for param in mnet_model_big.parameters():
@@ -216,11 +216,18 @@ if __name__ == '__main__':
     last_layer = nn.Linear(n_inputs, 5)
     mnet_model_big.classifier = last_layer
 
+    device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+    mnet_model_big = mnet_model_big.to(device)
+    mnet_model_big = mnet_model_big.to(device)
+    torch.cuda.empty_cache()
+    print("device: ", device)
+    print()
+
     # если есть - загружаем веса
     BEST_MODEL_PATH = os.path.join(BASE_DIR, f"ml03_best.pth")
     if os.path.isfile(BEST_MODEL_PATH):
-        print("mnet exist, load")
-        mnet_model_big.load_state_dict(torch.load(BEST_MODEL_PATH))
+        print("mnet ml03_best exist, load")
+        mnet_model_big.load_state_dict(torch.load(BEST_MODEL_PATH, map_location=torch.device(device)))
 
 
     mnet_model_ganned = torchvision.models.mobilenet_v3_large(weights=torchvision.models.MobileNet_V3_Large_Weights.IMAGENET1K_V1)
@@ -234,16 +241,8 @@ if __name__ == '__main__':
     # если есть - загружаем веса
     BEST_MODEL_PATH = os.path.join(BASE_DIR, f"ml04_ganned_best.pth")
     if os.path.isfile(BEST_MODEL_PATH):
-        print("mnet exist, load")
-        mnet_model_ganned.load_state_dict(torch.load(BEST_MODEL_PATH))
-
-
-    device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-    mnet_model_big = mnet_model_big.to(device)
-    mnet_model_ganned = mnet_model_ganned.to(device)
-    torch.cuda.empty_cache()
-    print("device: ", device)
-    print()
+        print("mnet ml04_ganned_best exist, load")
+        mnet_model_ganned.load_state_dict(torch.load(BEST_MODEL_PATH, map_location=torch.device(device)))
 
 
     # перебираем изображения
@@ -315,7 +314,7 @@ if __name__ == '__main__':
                             label_txt += f"{prediction}\n"
 
             #распознаем класс найденного
-            predictions = make_predictions(float(args.conf), float(args.iou), yolo_model, filename, crop_args)
+            predictions = make_predictions(float(args.conf), float(args.iou), yolo_model, filename)
             for prediction in predictions:
                 val = str(prediction).split(" ")
                 obj_cls, xywh = val[0], val[1:5]
