@@ -14,7 +14,7 @@ source myvenv/bin/activate
 
 **аккуратно инсталлируем требуемые модули**  
 pip install -r requirements.txt  
-Обратите внимание, версия torch должна соответствовать вашей ОС и GPU. Поэтому сначала стоит установить нужную Вам версию torch, а затем пакеты из requirements.txt
+Обратите внимание, **версия torch должна соответствовать вашей ОС и GPU**. Поэтому сначала стоит установить нужную Вам версию torch, а затем пакеты из requirements.txt
 
 ### Порядок установки ver_2_gan
 Надо добавить пакеты из [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN):  
